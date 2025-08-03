@@ -13,7 +13,7 @@ void main() {
       enabled: !kReleaseMode,
       builder:
           (context) => ProviderScope(
-            overrides: [changeNameProvider.overrideWith((ref) => 'abdo22')],
+            // overrides: [changeNameProvider.overrideWith((ref) => 'abdo22')],
             child: MyApp(),
           ), // Wrap your app
     ),

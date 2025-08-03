@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gdg_core/ui/numbers_page.dart';
-import 'package:gdg_core/ui/random_country_page.dart';
-import 'package:gdg_core/ui/users_page.dart';
+import 'package:gdg_core/ui/goto_country_btn.dart';
+import 'package:gdg_core/ui/goto_userstn.dart';
+
+import 'goto_numbers_btn.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final value = ref.watch(changeNameProvider);
     // final currentTheme = ref.watch(themeProvider);
     // provider --> read - watch - access
     // notifier --> update
@@ -48,75 +48,13 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class NameWidget extends StatelessWidget {
+class NameWidget extends ConsumerWidget {
   const NameWidget({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final myName = ref.watch(changeNameProvider);
     log('NameWidget rebuild');
-    return Consumer(
-      builder:
-          (_, ref, child) => Center(
-            child: Text(
-              ref.watch(changeNameProvider),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-    );
-  }
-}
-
-class GotoNumbersBtn extends StatelessWidget {
-  const GotoNumbersBtn({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    log('GotoNumbersBtn rebuild');
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const NumbersPage()),
-        );
-      },
-      child: const Text('Go to Random Numbers Page'),
-    );
-  }
-}
-
-class GotoUserstn extends StatelessWidget {
-  const GotoUserstn({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    log('GotoUserstn rebuild');
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const UsersPage()),
-        );
-      },
-      child: const Text('Go to Users Page'),
-    );
-  }
-}
-
-class GotoCountryBtn extends StatelessWidget {
-  const GotoCountryBtn({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    log('GotoCountryBtn rebuild');
-    return ElevatedButton(
-      onPressed: () {
-        // Navigate to the second page
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RandomCountryPage()),
-        );
-      },
-      child: const Text('Go to Random Name Page'),
-    );
+    return Text(myName, style: Theme.of(context).textTheme.titleLarge);
   }
 }
 
@@ -134,7 +72,8 @@ class CustomTextFrom extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
           onSubmitted: (value) {
-            ref.read(changeNameProvider.notifier).state = value;
+            // ref.read(changeNameProvider.notifier).state = value;
+            ref.read(changeNameProvider.notifier).update((state) => value);
           },
         );
       },
