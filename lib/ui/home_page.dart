@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gdg_core/ui/goto_country_btn.dart';
 import 'package:gdg_core/ui/goto_userstn.dart';
+import 'package:gdg_core/ui/news_page.dart';
 
 import 'goto_numbers_btn.dart';
 
@@ -42,6 +43,17 @@ class HomePage extends StatelessWidget {
           GotoUserstn(),
           SizedBox(height: 20),
           GotoNumbersBtn(),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              //NewsPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NewsPage()),
+              );
+            },
+            child: const Text('Go to News Page'),
+          ),
         ],
       ),
     );

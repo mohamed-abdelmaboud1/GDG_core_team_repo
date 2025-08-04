@@ -14,16 +14,14 @@ class RandomCountryPage extends StatelessWidget {
         children: [
           Consumer(
             child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UsersPage(),
-                          ),
-                        );
-                      },
-                      child: const Text('Go to Users Page'),
-                    ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UsersPage()),
+                );
+              },
+              child: const Text('Go to Users Page'),
+            ),
             builder:
                 (_, ref, child) => Column(
                   children: [
@@ -33,7 +31,7 @@ class RandomCountryPage extends StatelessWidget {
                         style: TextStyle(color: Colors.blue, fontSize: 50),
                       ),
                     ),
-                    if(child!=null) child,
+                    if (child != null) child,
                     // ?child,
                   ],
                 ),
