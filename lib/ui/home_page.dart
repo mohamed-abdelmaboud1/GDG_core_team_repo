@@ -2,11 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gdg_core/ui/goto_country_btn.dart';
-import 'package:gdg_core/ui/goto_userstn.dart';
-import 'package:gdg_core/ui/news_page.dart';
+import 'package:gdg_core/cache_manager.dart';
+import 'package:gdg_core/shared_pref_helper.dart';
 
-import 'goto_numbers_btn.dart';
+class SharedPrefKeys {
+  static const String counter = 'counter';
+  static const String repeat = 'repeat';
+  static const String decimal = 'decimal';
+  static const String action = 'action';
+  static const String items = 'items';
+}
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -33,28 +38,75 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: const Text('Riverpod Example')),
       body: Column(
         children: [
-          NameWidget(),
-          SizedBox(height: 20),
-          //textForm
-          CustomTextFrom(),
-          GotoCountryBtn(),
-
-          SizedBox(height: 20),
-          GotoUserstn(),
-          SizedBox(height: 20),
-          GotoNumbersBtn(),
-          SizedBox(height: 20),
+          NameWidgetV2(),
           ElevatedButton(
-            onPressed: () {
-              //NewsPage
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const NewsPage()),
+            onPressed: () async {
+              await CacheManager.setData(
+                key: SharedPrefKeys.counter,
+                value: 20,
               );
+                await CacheManager.setData(
+                key: SharedPrefKeys.repeat,
+                value: 'repeat',
+              );
+              // await SharedPrefHelper.clearData(key: SharedPrefKeys.counter);
             },
-            child: const Text('Go to News Page'),
+            child: const Text('set value'),
           ),
+          // SizedBox(height: 20),
+          // //textForm
+          // CustomTextFrom(),
+          // GotoCountryBtn(),
+
+          // SizedBox(height: 20),
+          // GotoUserstn(),
+          // SizedBox(height: 20),
+          // GotoNumbersBtn(),
+          // SizedBox(height: 20),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     //NewsPage
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => const NewsPage()),
+          //     );
+          //   },
+          //   child: const Text('Go to News Page'),
+          // ),
         ],
+      ),
+    );
+  }
+}
+
+class NameWidgetV2 extends StatefulWidget {
+  const NameWidgetV2({super.key});
+
+  @override
+  State<NameWidgetV2> createState() => _NameWidgetV2State();
+}
+
+class _NameWidgetV2State extends State<NameWidgetV2> {
+  // late int counter;
+
+  @override
+  void initState() {
+    super.initState();
+    // getLocalData();
+  }
+
+  // getLocalData() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   counter = prefs.getInt(SharedPrefKeys.counter) ?? 0;
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        CacheManager.getData(key: SharedPrefKeys.repeat)?.toString() ??
+            'No Value',
+        style: TextStyle(fontSize: 80, color: Colors.blue),
       ),
     );
   }

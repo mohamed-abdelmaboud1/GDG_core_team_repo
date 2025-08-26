@@ -4,10 +4,14 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gdg_core/cache_manager.dart';
+import 'package:gdg_core/shared_pref_helper.dart';
 import 'package:gdg_core/ui/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefHelper.init();
+  await CacheManager.init();
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
