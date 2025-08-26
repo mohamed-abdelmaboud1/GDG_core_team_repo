@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gdg_core/cache_manager.dart';
-import 'package:gdg_core/shared_pref_helper.dart';
+import 'package:gdg_core/cache/cache_manager.dart';
+import 'package:gdg_core/cache/shared_pref_helper.dart';
 
 class SharedPrefKeys {
   static const String counter = 'counter';
